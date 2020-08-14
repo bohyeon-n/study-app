@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "userId": "koo",
+      "content": "좋아요",
+      "created_date": "2020-01-01 12:55:22"
+    },
+    {
+      "userId": "haha",
+      "content": "싫어요",
+      "created_date": "2020-01-01 12:55:22"
+    },
+    {
+      "userId": "ellie",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋ",
+      "created_date": "2020-01-01 12:55:22"
+    }
+  ]
+}

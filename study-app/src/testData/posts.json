@@ -1,0 +1,74 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "userId": "koo",
+      "title": "자바 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "서울",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    },
+    {
+      "id": 2,
+      "userId": "koo",
+      "title": "파이썬 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "경기",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    },
+    {
+      "id": 3,
+      "userId": "koo",
+      "title": "코틀린 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "부산",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    },
+    {
+      "id": 4,
+      "userId": "koddo",
+      "title": "히히 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "서울",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    },
+    {
+      "id": 5,
+      "userId": "koo!!",
+      "title": "키키 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "서울",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    },
+    {
+      "id": 6,
+      "userId": "ellie",
+      "title": "먹기 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "서울",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    },
+    {
+      "id": 7,
+      "userId": "bohyeon",
+      "title": "ㅎ호 스터디 모집합니다.",
+      "created_date": "2020-01-01 12:55:22",
+      "local": "서울",
+      "category": "JAVA",
+      "comment_count": 5,
+      "view_count": 20
+    }
+  ]
+}
