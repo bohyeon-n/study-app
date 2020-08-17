@@ -17,11 +17,14 @@ export type PostAction =
     }
   | {
       type: typeof DELETE_COMMENT
-      payload: Comment[]
+      payload: number
     }
   | {
       type: typeof UPDATE_COMMENT
-      payload: Comment[]
+      payload: {
+        updatedId: number
+        newComment: Comment
+      }
     }
 
 export interface PostState {
@@ -63,14 +66,21 @@ export const postReducer = (
       return {
         post: {
           ...state.post,
-          comments: action.payload
+          comments: state.post.comments.filter(
+            (comment: Comment) => comment.id !== action.payload
+          )
         }
       }
     case UPDATE_COMMENT:
       return {
         post: {
           ...state.post,
-          comments: action.payload
+          comments: state.post.comments.map((comment: Comment) => {
+            if (comment.id === action.payload.updatedId) {
+              comment = action.payload.newComment
+            }
+            return comment
+          })
         }
       }
     default:

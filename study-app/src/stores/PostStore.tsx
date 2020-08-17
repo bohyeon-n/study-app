@@ -46,22 +46,17 @@ export const PostProvider = ({
   }
 
   const deleteComment = (deletedId: number) => {
-    const newComments = state.post.comments.filter(
-      (comment: Comment) => comment.id !== deletedId
-    )
-
-    dispatch({ type: DELETE_COMMENT, payload: newComments })
+    dispatch({ type: DELETE_COMMENT, payload: deletedId })
   }
 
   const updateComment = (updatedId: number, newComment: Comment) => {
-    const newComments = state.post.comments.map((comment: Comment) => {
-      if (comment.id === updatedId) {
-        comment = newComment
+    dispatch({
+      type: UPDATE_COMMENT,
+      payload: {
+        updatedId: updatedId,
+        newComment: newComment
       }
-      return comment
     })
-
-    dispatch({ type: UPDATE_COMMENT, payload: newComments })
   }
 
   const loading = useFetch(
