@@ -5,7 +5,7 @@ import {
   initialState,
   SET_INIT_DATA,
   RESET_USER_DATA
-} from '../reducer/user'
+} from '../reducers/user'
 import { User } from '../models/User'
 
 export type UserContextProps = {

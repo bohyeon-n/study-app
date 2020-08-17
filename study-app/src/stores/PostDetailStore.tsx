@@ -5,12 +5,12 @@ import {
   ADD_COMMENT,
   DELETE_COMMENT,
   UPDATE_COMMENT
-} from '../reducer/post'
+} from '../reducers/post'
 
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
 import { Comment } from '../models/Comment'
-import { SET_INIT_DATA } from '../reducer/user'
+import { SET_INIT_DATA } from '../reducers/user'
 
 export type PostContextProps = {
   post: PostDetail

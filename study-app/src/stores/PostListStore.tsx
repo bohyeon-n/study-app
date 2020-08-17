@@ -7,7 +7,7 @@ import {
   postListReducer,
   initialState,
   SET_INIT_DATA
-} from '../reducer/postList'
+} from '../reducers/postList'
 
 export type PostListContextProps = {
   posts: Post[]
