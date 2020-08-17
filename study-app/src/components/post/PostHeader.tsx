@@ -1,8 +1,5 @@
 import React, { useContext } from 'react'
-import {
-  PostDetailContext,
-  PostDetailStore
-} from '../../stores/PostDetailStore'
+import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
 import { PostDetail } from '../../models/PostDetail'
 import styled from 'styled-components'
 import { basicTheme } from '../../styles/basic-theme'
@@ -46,7 +43,7 @@ const PostHeaderStyle = styled.div`
 `
 
 export const PostHeader = () => {
-  const { post }: { post: PostDetail } = useContext(PostDetailContext)
+  const { post }: PostContextProps = useContext(PostContext)
 
   if (post) {
     return (
@@ -56,7 +53,7 @@ export const PostHeader = () => {
         </div>
         <div className="mid">{post.title}</div>
         <div className="bottom">
-          <span>{post.author.username}</span>
+          <span>{post.author !== null && post.author.username}</span>
           <span>조회 {post.view_count}</span>
           <span>{post.created_time}</span>
           <div>

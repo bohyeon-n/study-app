@@ -6,8 +6,7 @@ import {
 } from '../../style-components/button/DefaultButton'
 import { Link, useParams, Redirect } from 'react-router-dom'
 import { UserContext } from '../../stores/UserStore'
-import { PostDetailContext } from '../../stores/PostDetailStore'
-import { PostDetail } from '../../models/PostDetail'
+import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
 
 const PostNavigationWrapper = styled.div`
   padding-right: 1rem;
@@ -19,7 +18,7 @@ export const PostNavigation = () => {
   const { postId } = useParams()
 
   const { user } = useContext(UserContext)
-  const { post }: { post: PostDetail } = useContext(PostDetailContext)
+  const { post }: PostContextProps = useContext(PostContext)
   const [toHome, redirectHome] = useState(false)
 
   const isAuthorUser = user && post && post.author && user.id === post.author.id

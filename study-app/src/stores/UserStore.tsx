@@ -1,31 +1,38 @@
 import React, { FunctionComponent, useReducer } from 'react'
 import { useFetch } from '../custom-hook/useFetch'
-import { userReducer } from '../reducer/reducer'
+import {
+  userReducer,
+  initialState,
+  SET_INIT_DATA,
+  RESET_USER_DATA
+} from '../reducer/user'
 import { User } from '../models/User'
 
-export interface UserStoreType {
-  user: User | null
-  dispatch: Function
+export type UserContextProps = {
+  user: User
   logout: Function
 }
 
-export const UserContext = React.createContext<any | undefined>(undefined)
+export const UserContext = React.createContext<UserContextProps>({
+  user: initialState.user,
+  logout: () => {}
+})
 
-const UserStore: FunctionComponent<any> = ({ children }) => {
-  const [user, dispatch] = useReducer(userReducer, null)
+const UserProvider: FunctionComponent = ({ children }) => {
+  const [state, setUserState] = useReducer(userReducer, initialState)
 
   const TOKEN_NAME = 'login_token'
 
-  const setInitData = (initData: User) => {
-    if (initData.id == null) {
-      dispatch({ type: 'SET_INIT_DATA', payload: null })
+  const setInitData = (initUserData: User) => {
+    if (initUserData.id == null) {
+      setUserState({ type: SET_INIT_DATA, payload: initialState.user })
     } else {
-      dispatch({ type: 'SET_INIT_DATA', payload: initData })
+      setUserState({ type: SET_INIT_DATA, payload: initUserData })
     }
   }
 
   const resetData = () => {
-    dispatch({ type: 'RESET_DATA', payload: null })
+    setUserState({ type: RESET_USER_DATA, payload: null })
   }
 
   const logout = () => {
@@ -45,11 +52,13 @@ const UserStore: FunctionComponent<any> = ({ children }) => {
 
   useFetch(setInitData, `${process.env.REACT_APP_BASE_URL}/me`)
 
+  const { user } = state
+
   return (
-    <UserContext.Provider value={{ user, dispatch, logout }}>
+    <UserContext.Provider value={{ user, logout }}>
       {children}
     </UserContext.Provider>
   )
 }
 
-export default UserStore
+export default UserProvider

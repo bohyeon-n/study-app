@@ -1,17 +1,13 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 
-import { PostDetailContext } from '../../stores/PostDetailStore'
-import { PostDetail } from '../../models/PostDetail'
+import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
 import { UserContext } from '../../stores/UserStore'
 
 import { CommentInputBox } from './CommentInputBox'
 
 export const CommentCreator = () => {
-  const {
-    post,
-    addComment
-  }: { post: PostDetail; addComment: Function } = useContext(PostDetailContext)
+  const { post, addComment }: PostContextProps = useContext(PostContext)
   const { user } = useContext(UserContext)
 
   const [comment, dispatchComment] = useState('')

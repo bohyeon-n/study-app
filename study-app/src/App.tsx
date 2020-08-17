@@ -43,7 +43,7 @@ function App() {
   if (searchText === null) {
     searchText = getQueryString()
   }
-  console.log(process.env.REACT_APP_BASE_URL)
+
   return (
     <UserStore>
       <PageStore>

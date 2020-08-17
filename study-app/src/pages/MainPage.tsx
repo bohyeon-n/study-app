@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { MainContainer } from '../components/container/MainContainer'
-import PostStore from '../stores/PostStore'
+import PostStore from '../stores/PostListStore'
 
 export const MainPage: FunctionComponent = () => {
   return (

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { PostDetail } from '../../models/PostDetail'
-import { PostDetailContext } from '../../stores/PostDetailStore'
+import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
 import styled from 'styled-components'
 
 const PostContentWrapper = styled.div`
@@ -13,7 +12,7 @@ const PostContentWrapper = styled.div`
 `
 
 export const PostContent = () => {
-  const { post }: { post: PostDetail } = useContext(PostDetailContext)
+  const { post }: PostContextProps = useContext(PostContext)
   return post ? (
     <PostContentWrapper>{post.content}</PostContentWrapper>
   ) : (

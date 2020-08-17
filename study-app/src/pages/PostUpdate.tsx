@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { SelectBox } from '../style-components/selectBox/SelectBox'
@@ -9,7 +9,7 @@ import { Input } from '../style-components/input/Input'
 import { Redirect, useParams } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
-import { PostContext } from '../stores/PostStore'
+import { PostContextProps, PostContext } from '../stores/PostDetailStore'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -60,7 +60,6 @@ export const PostUpdate = () => {
     { label: '광주', value: '광주' },
     { label: '강원도', value: '강원도' }
   ]
-  const { updatePost } = useContext(PostContext)
 
   const { postId } = useParams()
   const [toPostPage, redirectPostPage] = useState(false)
@@ -98,20 +97,19 @@ export const PostUpdate = () => {
       })
     }
 
-    const updated = await fetch(
+    await fetch(
       `${process.env.REACT_APP_BASE_URL}/posts/${postId}`,
       requestOptions
     ).then(response => response.json())
 
-    updatePost(updated)
     redirectPostPage(true)
   }
 
   useFetch((data: PostDetail) => {
-    updateCategory(data.category)
-    updateLocation(data.location)
-    updateContent(data.content)
-    updateTitle(data.title)
+    updateCategory(data.category !== null ? data.category : '')
+    updateLocation(data.location !== null ? data.location : '')
+    updateContent(data.content !== null ? data.content : '')
+    updateTitle(data.title !== null ? data.title : '')
   }, `${process.env.REACT_APP_BASE_URL}/posts/${postId}`)
 
   return toPostPage ? (

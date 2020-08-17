@@ -2,15 +2,14 @@ import React, { useContext, FunctionComponent, useState } from 'react'
 import styled from 'styled-components'
 import { basicTheme } from '../../styles/basic-theme'
 import { Comment as CommentData } from '../../models/Comment'
-import { PostDetail } from '../../models/PostDetail'
 import { Comment as CommentModel } from '../../models/Comment'
-import { PostDetailContext } from '../../stores/PostDetailStore'
+import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
 import { Dropdown } from '../../style-components/dropdown/Dropdown'
 
 import { OptionDot } from '../../style-components/icon/OptionDot'
 import { Menu } from '../../style-components/menu/Menu'
 import { MenuItem } from '../../style-components/menu/MenuItem'
-import { UserContext } from '../../stores/UserStore'
+import { UserContext, UserContextProps } from '../../stores/UserStore'
 import { User } from '../../models/User'
 import { CommentInputBox } from './CommentInputBox'
 
@@ -66,16 +65,10 @@ export const Comment: FunctionComponent<CommentProps> = ({
   updateIndex,
   activeIndex
 }) => {
-  const {
-    post,
-    deleteComment,
-    updateComment
-  }: {
-    post: PostDetail
-    deleteComment: Function
-    updateComment: Function
-  } = useContext(PostDetailContext)
-  const { user }: { user: User } = useContext(UserContext)
+  const { post, deleteComment, updateComment }: PostContextProps = useContext(
+    PostContext
+  )
+  const { user }: UserContextProps = useContext(UserContext)
 
   const [activeCommentInputId, changeAcitveCommentId] = useState()
 

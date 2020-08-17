@@ -1,48 +1,67 @@
-import React, { useReducer } from 'react'
-import { postDetailReducer } from '../reducer/reducer'
+import React, { useReducer, ReactNode } from 'react'
+import {
+  postReducer,
+  initialState,
+  ADD_COMMENT,
+  DELETE_COMMENT,
+  UPDATE_COMMENT
+} from '../reducer/post'
+
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
 import { Comment } from '../models/Comment'
+import { SET_INIT_DATA } from '../reducer/user'
 
-export const PostDetailContext = React.createContext<any | undefined>(undefined)
+export type PostContextProps = {
+  post: PostDetail
+  addComment: Function
+  deleteComment: Function
+  loading: boolean
+  updateComment: Function
+}
 
-export const PostDetailStore = ({
+export const PostContext = React.createContext<PostContextProps>({
+  post: initialState.post,
+  addComment: () => {},
+  deleteComment: () => {},
+  updateComment: () => {},
+  loading: false
+})
+
+export const PostProvider = ({
   id,
   children
 }: {
   id: number
-  children: React.ReactNode
+  children: ReactNode
 }) => {
-  const [post, dispatch]: [PostDetail, Function] = useReducer(
-    postDetailReducer,
-    null
-  )
+  const [state, dispatch] = useReducer(postReducer, initialState)
 
   const setInitData = (initData: PostDetail) => {
-    dispatch({ type: 'SET_INIT_DATA', payload: initData })
+    dispatch({ type: SET_INIT_DATA, payload: initData })
   }
 
   const addComment = (newData: any) => {
-    dispatch({ type: 'ADD_COMMENT', payload: newData })
+    dispatch({ type: ADD_COMMENT, payload: newData })
   }
 
   const deleteComment = (deletedId: number) => {
-    const newComments = post.comments.filter(
-      comment => comment.id !== deletedId
+    const newComments = state.post.comments.filter(
+      (comment: Comment) => comment.id !== deletedId
     )
 
-    dispatch({ type: 'DELETE_COMMENT', payload: newComments })
+    dispatch({ type: DELETE_COMMENT, payload: newComments })
   }
 
   const updateComment = (updatedId: number, newComment: Comment) => {
-    const newComments = post.comments.map(comment => {
+    const newComments = state.post.comments.map((comment: Comment) => {
       if (comment.id === updatedId) {
         comment = newComment
       }
       return comment
     })
 
-    dispatch({ type: 'UPDATE_COMMENT', payload: newComments })
+    dispatch({ type: UPDATE_COMMENT, payload: newComments })
   }
 
   const loading = useFetch(
@@ -50,11 +69,12 @@ export const PostDetailStore = ({
     `${process.env.REACT_APP_BASE_URL}/posts/${id}`
   )
 
+  const { post } = state
   return (
-    <PostDetailContext.Provider
+    <PostContext.Provider
       value={{ post, addComment, deleteComment, loading, updateComment }}
     >
       {children}
-    </PostDetailContext.Provider>
+    </PostContext.Provider>
   )
 }

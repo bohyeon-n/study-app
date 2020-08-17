@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useState } from 'react'
-import { UserContext, UserStoreType } from '../stores/UserStore'
+import { UserContext, UserContextProps } from '../stores/UserStore'
 import styled from 'styled-components'
 import { basicTheme } from '../styles/basic-theme'
 import { PostItemWrapper, CommentBox } from './../components/post/PostItem'
@@ -86,7 +86,7 @@ const Comment = styled.div`
 `
 
 export const MyPage: FunctionComponent = () => {
-  const { user }: UserStoreType = useContext(UserContext)
+  const { user }: UserContextProps = useContext(UserContext)
   const [activeTab, dispatchActiveTab] = useState('post')
 
   const [userActivity, dispatchUserActivity] = useState<UserActivity>({
@@ -106,7 +106,10 @@ export const MyPage: FunctionComponent = () => {
     <MyPageWrapper>
       <UserInfoWrapper>
         <div className="profile">
-          <img src={user.profile_url} alt="" />
+          <img
+            src={user.profile_url !== null ? user.profile_url : '#'}
+            alt=""
+          />
         </div>
         <div className="username">{user.username}</div>
       </UserInfoWrapper>

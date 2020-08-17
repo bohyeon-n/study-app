@@ -1,13 +1,13 @@
 import { User } from './User'
 import { Comment } from './Comment'
 export interface PostDetail {
-  author: User
-  category: string
+  author: User | null
+  category: string | null
   comments: Comment[]
-  content: string
-  created_time: string
-  id: number
-  location: string
-  title: string
-  view_count: number
+  content: string | null
+  created_time: string | null
+  id: number | null
+  location: string | null
+  title: string | null
+  view_count: number | null
 }

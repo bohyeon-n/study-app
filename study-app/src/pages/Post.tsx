@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { PostDetailStore } from '../stores/PostDetailStore'
+import { PostProvider } from '../stores/PostDetailStore'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostContent } from '../components/post/PostContent'
 import { basicTheme } from '../styles/basic-theme'
@@ -27,7 +27,7 @@ export const Post = () => {
 
   return (
     <PostStyle onClick={e => updateIndex(null)}>
-      <PostDetailStore id={postId}>
+      <PostProvider id={postId}>
         <PostNavigation />
         <PostHeader />
         <PostContent />
@@ -38,7 +38,7 @@ export const Post = () => {
           />
           <CommentCreator />
         </CommentContainerWrapper>
-      </PostDetailStore>
+      </PostProvider>
     </PostStyle>
   )
 }
