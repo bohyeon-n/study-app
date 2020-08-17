@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { PostProvider } from '../stores/PostDetailStore'
+import { PostProvider } from '../stores/PostStore'
 import { PostHeader } from '../components/post/PostHeader'
 import { PostContent } from '../components/post/PostContent'
 import { basicTheme } from '../styles/basic-theme'

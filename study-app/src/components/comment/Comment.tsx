@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { basicTheme } from '../../styles/basic-theme'
 import { Comment as CommentData } from '../../models/Comment'
 import { Comment as CommentModel } from '../../models/Comment'
-import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
+import { PostContext, PostContextProps } from '../../stores/PostStore'
 import { Dropdown } from '../../style-components/dropdown/Dropdown'
 
 import { OptionDot } from '../../style-components/icon/OptionDot'

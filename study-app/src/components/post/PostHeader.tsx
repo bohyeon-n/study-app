@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
+import { PostContext, PostContextProps } from '../../stores/PostStore'
 import { PostDetail } from '../../models/PostDetail'
 import styled from 'styled-components'
 import { basicTheme } from '../../styles/basic-theme'

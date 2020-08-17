@@ -6,7 +6,7 @@ import {
 } from '../../style-components/button/DefaultButton'
 import { Link, useParams, Redirect } from 'react-router-dom'
 import { UserContext } from '../../stores/UserStore'
-import { PostContext, PostContextProps } from '../../stores/PostDetailStore'
+import { PostContext, PostContextProps } from '../../stores/PostStore'
 
 const PostNavigationWrapper = styled.div`
   padding-right: 1rem;
