@@ -201,6 +201,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ handleSearch }) => {
 
   const onSearch = () => {
     handleSearch(searchText)
+    setSearchText('')
   }
 
   document.body.addEventListener('click', () => {
@@ -231,6 +232,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ handleSearch }) => {
             type="text"
             onKeyDown={onKeyDownSearchBtn}
             onChange={e => setSearchText(e.target.value)}
+            value={searchText}
           />
           <button
             className={`search-button ${searchBarAcitve && 'active'}`}
