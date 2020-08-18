@@ -8,7 +8,10 @@ export const useInputs = (initialForm: any) => {
     setForm((form: any) => ({ ...form, [name]: value }))
   }, [])
 
-  const reset = useCallback(() => setForm(initialForm), [initialForm])
+  const reset = useCallback(
+    data => (data == null ? setForm(initialForm) : setForm(data)),
+    [initialForm]
+  )
 
   return [form, onChange, reset]
 }

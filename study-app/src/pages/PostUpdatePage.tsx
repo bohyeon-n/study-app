@@ -9,6 +9,7 @@ import { Redirect, useParams } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
 import { categoryOptions, locationOptions } from '../constants/postOptions'
+import { useInputs } from '../custom-hook/useInputs'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -46,26 +47,13 @@ const Buttons = styled.div`
 export const PostUpdatePage = () => {
   const { postId } = useParams()
   const [toPostPage, redirectPostPage] = useState(false)
-  const [selectedCategory, updateCategory] = useState(categoryOptions[0].value)
-  const [selectedLocation, updateLocation] = useState(locationOptions[0].value)
-  const [content, updateContent] = useState('')
-  const [title, updateTitle] = useState('')
 
-  const onChangeCategory = (value: string) => {
-    updateCategory(value)
-  }
-
-  const onChangeLocation = (value: string) => {
-    updateLocation(value)
-  }
-
-  const onChangeTitle = (value: string) => {
-    updateTitle(value)
-  }
-
-  const onChangeContent = (value: string) => {
-    updateContent(value)
-  }
+  const [{ category, location, content, title }, onChange, reset] = useInputs({
+    category: '',
+    location: '',
+    content: '',
+    title: ''
+  })
 
   const onClickUpdate = async () => {
     const requestOptions: RequestInit = {
@@ -73,8 +61,8 @@ export const PostUpdatePage = () => {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify({
-        category: selectedCategory,
-        location: selectedLocation,
+        category: category,
+        location: location,
         title: title,
         content: content
       })
@@ -89,10 +77,12 @@ export const PostUpdatePage = () => {
   }
 
   useFetch((data: PostDetail) => {
-    updateCategory(data.category !== null ? data.category : '')
-    updateLocation(data.location !== null ? data.location : '')
-    updateContent(data.content !== null ? data.content : '')
-    updateTitle(data.title !== null ? data.title : '')
+    reset({
+      category: data.category !== null ? data.category : '',
+      location: data.location !== null ? data.location : '',
+      content: data.content !== null ? data.content : '',
+      title: data.title !== null ? data.title : ''
+    })
   }, `${process.env.REACT_APP_BASE_URL}/posts/${postId}`)
 
   return toPostPage ? (
@@ -105,22 +95,24 @@ export const PostUpdatePage = () => {
             width={200}
             height={40}
             options={categoryOptions}
-            onChange={onChangeCategory}
-            selectedValue={selectedCategory}
+            onChange={onChange}
+            selectedValue={category}
             fontSize={16}
+            name={'category'}
           />
           <SelectBox
             width={200}
             height={40}
             fontSize={16}
             options={locationOptions}
-            onChange={onChangeLocation}
-            selectedValue={selectedLocation}
+            onChange={onChange}
+            selectedValue={location}
+            name={'location'}
           />
         </div>
         <div className="input__wrapper">
           <Input
-            onChange={onChangeTitle}
+            onChange={onChange}
             label={'title'}
             fontSize={14}
             defaultContent={title}
@@ -129,7 +121,7 @@ export const PostUpdatePage = () => {
       </HeaderWrapper>
       <TextArea
         height={500}
-        onChange={onChangeContent}
+        onChange={onChange}
         label={'content'}
         fontSize={14}
         defaultContent={content}

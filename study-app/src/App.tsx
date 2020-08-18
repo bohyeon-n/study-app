@@ -9,7 +9,7 @@ import {
 
 import { MainPage } from './pages/MainPage'
 import { PostPage } from './pages/PostPage'
-import { PostFormPage } from './pages/PostFormPage'
+import { PostFormPage } from './pages/PostCreatePage'
 import { PostUpdatePage } from './pages/PostUpdatePage'
 import { MyPage } from './pages/MyPage'
 import UserStore from './stores/UserStore'
