@@ -1,12 +1,15 @@
 import React, { useState, useContext, FunctionComponent } from 'react'
-import { PostContext } from '../../stores/PostStore'
 import { List } from '../post/PostList'
 import styled from 'styled-components'
 import { DefaultButton } from '../../style-components/button/DefaultButton'
 import { Redirect } from 'react-router-dom'
-import { UserContext } from '../../stores/UserStore'
+import { UserContext, UserContextProps } from '../../stores/UserStore'
 import { Pagingation } from '../../style-components/page/Pagination'
 import { device } from '../../styles/device'
+import {
+  PostListConext,
+  PostListContextProps
+} from '../../stores/PostListStore'
 
 const Container = styled.div`
   width: 100%;
@@ -31,7 +34,7 @@ const MainBottom = styled.div`
 `
 
 export const MainContainer: FunctionComponent = () => {
-  const { user, dispatch } = useContext(UserContext)
+  const { user }: UserContextProps = useContext(UserContext)
   const {
     posts,
     loading,
@@ -39,7 +42,7 @@ export const MainContainer: FunctionComponent = () => {
     currentPage,
     totalPost,
     PAGE_SIZE
-  } = useContext(PostContext)
+  }: PostListContextProps = useContext(PostListConext)
 
   const [createPostPage, dispatchRedirectToPost] = useState(false)
 

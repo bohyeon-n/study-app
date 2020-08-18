@@ -15,7 +15,7 @@ CREATE TABLE post
 (
     id         bigint primary key auto_increment,
     title      varchar(512),
-    local      varchar(128),
+    location      varchar(128),
     category   varchar(128),
     created_time datetime,
     content    text,

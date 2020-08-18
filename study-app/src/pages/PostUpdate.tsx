@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { SelectBox } from '../style-components/selectBox/SelectBox'
@@ -9,7 +9,7 @@ import { Input } from '../style-components/input/Input'
 import { Redirect, useParams } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
-import { PostContext } from '../stores/PostStore'
+import { PostContextProps, PostContext } from '../stores/PostStore'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -46,21 +46,25 @@ const Buttons = styled.div`
 
 export const PostUpdate = () => {
   const options: OptionType<string>[] = [
-    { label: 'java', value: 'java' },
-    { label: 'javascript', value: 'javascript' },
-    { label: 'haha', value: 'haha' },
-    { label: 'hoho', value: 'hoho' }
+    { label: '언어', value: '언어' },
+    { label: 'CS', value: 'CS' },
+    { label: '취업', value: '취업' },
+    { label: '기타', value: '기타' }
   ]
 
   const locationOptions: OptionType<string>[] = [
-    { label: '충남', value: '충남' },
-    { label: '경기', value: '경기' },
     { label: '서울', value: '서울' },
-    { label: '부산', value: '부산' },
-    { label: '광주', value: '광주' },
-    { label: '강원도', value: '강원도' }
+    { label: '경기', value: '경기' },
+    { label: '인천', value: '인천' },
+    { label: '대전/충청/세종', value: '대전/충청/종종' },
+    { label: '부산/울산/경남', value: '부산/울산/경남' },
+    { label: '광주/전라', value: '광주/전라' },
+    { label: '대구/경북', value: '대구/경북' },
+    { label: '강원', value: '강원' },
+    { label: '제주', value: '제주' },
+    { label: '기타', value: '기타' },
+    { label: '온라인', value: '온라인' }
   ]
-  const { updatePost } = useContext(PostContext)
 
   const { postId } = useParams()
   const [toPostPage, redirectPostPage] = useState(false)
@@ -98,20 +102,19 @@ export const PostUpdate = () => {
       })
     }
 
-    const updated = await fetch(
+    await fetch(
       `${process.env.REACT_APP_BASE_URL}/posts/${postId}`,
       requestOptions
     ).then(response => response.json())
 
-    updatePost(updated)
     redirectPostPage(true)
   }
 
   useFetch((data: PostDetail) => {
-    updateCategory(data.category)
-    updateLocation(data.location)
-    updateContent(data.content)
-    updateTitle(data.title)
+    updateCategory(data.category !== null ? data.category : '')
+    updateLocation(data.location !== null ? data.location : '')
+    updateContent(data.content !== null ? data.content : '')
+    updateTitle(data.title !== null ? data.title : '')
   }, `${process.env.REACT_APP_BASE_URL}/posts/${postId}`)
 
   return toPostPage ? (

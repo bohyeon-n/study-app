@@ -1,52 +1,75 @@
-import React, { useReducer, useState, useContext } from 'react'
-import { postReducer } from '../reducer/reducer'
+import React, { useReducer, ReactNode } from 'react'
+import {
+  postReducer,
+  initialState,
+  ADD_COMMENT,
+  DELETE_COMMENT,
+  UPDATE_COMMENT
+} from '../reducers/post'
+
 import { useFetch } from '../custom-hook/useFetch'
-import { Posts } from '../models/Post'
-import { PageContext } from './PageStore'
+import { PostDetail } from '../models/PostDetail'
+import { Comment } from '../models/Comment'
+import { SET_INIT_DATA } from '../reducers/user'
 
-export const PostContext = React.createContext<any | undefined>(undefined)
-export interface Page {
-  currentPage: number
-  totalPost: number
+export type PostContextProps = {
+  post: PostDetail
+  addComment: Function
+  deleteComment: Function
+  loading: boolean
+  updateComment: Function
 }
-const PostStore = ({ children }: { children: React.ReactNode }) => {
-  const [posts, dispatch]: any = useReducer(postReducer, [])
 
-  const {
-    currentPage,
-    totalPost,
-    handleSetPage,
-    handleSetTotalPost
-  } = useContext(PageContext)
+export const PostContext = React.createContext<PostContextProps>({
+  post: initialState.post,
+  addComment: () => {},
+  deleteComment: () => {},
+  updateComment: () => {},
+  loading: false
+})
 
-  const PAGE_SIZE = 10
+export const PostProvider = ({
+  id,
+  children
+}: {
+  id: number
+  children: ReactNode
+}) => {
+  const [state, dispatch] = useReducer(postReducer, initialState)
 
-  const setInitData = (initData: Posts) => {
-    dispatch({ type: 'SET_INIT_DATA', payload: initData.posts })
-    handleSetTotalPost(initData.postCount)
+  const setInitData = (initData: PostDetail) => {
+    dispatch({ type: SET_INIT_DATA, payload: initData })
+  }
+
+  const addComment = (newData: any) => {
+    dispatch({ type: ADD_COMMENT, payload: newData })
+  }
+
+  const deleteComment = (deletedId: number) => {
+    dispatch({ type: DELETE_COMMENT, payload: deletedId })
+  }
+
+  const updateComment = (updatedId: number, newComment: Comment) => {
+    dispatch({
+      type: UPDATE_COMMENT,
+      payload: {
+        updatedId: updatedId,
+        newComment: newComment
+      }
+    })
   }
 
   const loading = useFetch(
     setInitData,
-    `${process.env.REACT_APP_BASE_URL}/posts?pageNo=${currentPage}&pageSize=${PAGE_SIZE}`,
-    [currentPage]
+    `${process.env.REACT_APP_BASE_URL}/posts/${id}`
   )
 
+  const { post } = state
   return (
     <PostContext.Provider
-      value={{
-        posts,
-        loading,
-        dispatch,
-        handleSetPage,
-        currentPage,
-        totalPost,
-        PAGE_SIZE
-      }}
+      value={{ post, addComment, deleteComment, loading, updateComment }}
     >
       {children}
     </PostContext.Provider>
   )
 }
-
-export default PostStore

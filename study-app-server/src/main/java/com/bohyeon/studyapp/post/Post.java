@@ -13,7 +13,7 @@ public class Post {
 
     private String title;
 
-    private String local;
+    private String location;
 
     private String category;
 
@@ -29,10 +29,10 @@ public class Post {
     private Long authorId;
 
 
-    public Post(Long id, String title, String local, String category, String createdTime, String content, Long viewCount, Long authorId) {
+    public Post(Long id, String title, String location, String category, String createdTime, String content, Long viewCount, Long authorId) {
         this.id = id;
         this.title = title;
-        this.local = local;
+        this.location = location;
         this.category = category;
         this.createdTime = createdTime;
         this.content = content;
@@ -57,11 +57,11 @@ public class Post {
     }
 
     public String getLocal() {
-        return local;
+        return location;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setLocal(String location) {
+        this.location = location;
     }
 
     public String getCategory() {
@@ -109,7 +109,7 @@ public class Post {
         return new StringJoiner(", ", Post.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("title='" + title + "'")
-                .add("local='" + local + "'")
+                .add("location='" + location + "'")
                 .add("category='" + category + "'")
                 .add("createdTime='" + createdTime + "'")
                 .add("content='" + content + "'")

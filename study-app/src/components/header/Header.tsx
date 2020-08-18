@@ -1,7 +1,7 @@
 import React, { useContext, useState, FunctionComponent } from 'react'
 import styled from 'styled-components'
 import { LoginButton } from '../login/LoginButton'
-import { UserContext, UserStoreType } from '../../stores/UserStore'
+import { UserContext, UserContextProps } from '../../stores/UserStore'
 import { Link } from 'react-router-dom'
 import { device } from '../../styles/device'
 import { basicTheme } from '../../styles/basic-theme'
@@ -178,8 +178,9 @@ const BurgerBar = styled.div`
 export interface HeaderProps {
   handleSearch: Function
 }
+
 export const Header: FunctionComponent<HeaderProps> = ({ handleSearch }) => {
-  const { user, logout }: UserStoreType = useContext(UserContext)
+  const { user, logout }: UserContextProps = useContext(UserContext)
 
   const [searchBarAcitve, changeSearchBarActive] = useState(false)
 
@@ -240,16 +241,19 @@ export const Header: FunctionComponent<HeaderProps> = ({ handleSearch }) => {
         </div>
       </div>
       <div className="header__item right">
-        {user != null && (
+        {user.id != null && (
           <div className={`profile-img menu `}>
             <Link to="/my-page">
-              <img src={user.profile_url} alt="" />
+              <img
+                src={user.profile_url != null ? user.profile_url : '#'}
+                alt=""
+              />
             </Link>
           </div>
         )}
         <div
           className={`menu login-menu ${faBars}`}
-          onClick={e => user != null && logout()}
+          onClick={e => user.id != null && logout()}
         >
           <div className="login-menu__icon">
             {user != null ? (
@@ -259,7 +263,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ handleSearch }) => {
             )}
           </div>
           <div className="login-menu__btn">
-            <LoginButton isLogined={user != null} logout={logout} />
+            <LoginButton isLogined={user.id != null} logout={logout} />
           </div>
         </div>
       </div>
