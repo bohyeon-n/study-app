@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom'
 
 import { MainPage } from './pages/MainPage'
-import { Post } from './pages/Post'
-import { PostCreator } from './pages/PostCreator'
-import { PostUpdate } from './pages/PostUpdate'
+import { PostPage } from './pages/PostPage'
+import { PostFormPage } from './pages/PostFormPage'
+import { PostUpdatePage } from './pages/PostUpdatePage'
 import { MyPage } from './pages/MyPage'
 import UserStore from './stores/UserStore'
 import { SearchPostPage } from './pages/SearchPostPage'
@@ -62,13 +62,13 @@ function App() {
                 <SearchPostPage searchText={searchText} />
               </Route>
               <Route path={`/posts/new`} exact={true}>
-                <PostCreator />
+                <PostFormPage />
               </Route>
               <Route path={`/posts/:postId`} exact={true}>
-                <Post />
+                <PostPage />
               </Route>
               <Route path={`/posts/:postId/update`} exact={true}>
-                <PostUpdate />
+                <PostUpdatePage />
               </Route>
               <Route path={`/my-page`} exact={true}>
                 <MyPage />

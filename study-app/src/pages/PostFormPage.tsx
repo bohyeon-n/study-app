@@ -21,7 +21,7 @@ const HeaderWrapper = styled.div`
   }
 `
 
-const PostCreatorWrapper = styled.div`
+const PostFormPageWrapper = styled.div`
   width: 100%;
   max-width: 980px;
   margin-right: auto;
@@ -41,7 +41,7 @@ const Buttons = styled.div`
   }
 `
 
-export const PostCreator = () => {
+export const PostFormPage = () => {
   const options: OptionType<string>[] = [
     { label: 'java', value: 'java' },
     { label: 'javascript', value: 'javascript' },
@@ -98,7 +98,7 @@ export const PostCreator = () => {
   return toHome ? (
     <Redirect to="/" />
   ) : (
-    <PostCreatorWrapper>
+    <PostFormPageWrapper>
       <HeaderWrapper>
         <div className="selectBox__wrapper">
           <SelectBox
@@ -136,6 +136,6 @@ export const PostCreator = () => {
         </DefaultButton>
         <DefaultButton width={50}>취소</DefaultButton>
       </Buttons>
-    </PostCreatorWrapper>
+    </PostFormPageWrapper>
   )
 }

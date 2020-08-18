@@ -9,7 +9,6 @@ import { Input } from '../style-components/input/Input'
 import { Redirect, useParams } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
-import { PostContextProps, PostContext } from '../stores/PostStore'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -44,7 +43,7 @@ const Buttons = styled.div`
   }
 `
 
-export const PostUpdate = () => {
+export const PostUpdatePage = () => {
   const options: OptionType<string>[] = [
     { label: '언어', value: '언어' },
     { label: 'CS', value: 'CS' },

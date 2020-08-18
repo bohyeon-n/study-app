@@ -17,7 +17,7 @@ const CommentContainerWrapper = styled.div`
   padding-bottom: 2rem;
 `
 
-export const Post = () => {
+export const PostPage = () => {
   const { postId } = useParams()
   const [activeIndex, updateIndex] = useState()
 
