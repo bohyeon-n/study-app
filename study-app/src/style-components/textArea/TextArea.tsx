@@ -39,12 +39,11 @@ export const TextArea = ({
         disable={disable}
         fontSize={fontSize}
         id={label}
-        onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>): void =>
-          onChange(ev.target.value)
-        }
+        onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => onChange(ev)}
         width={width}
         height={height}
         value={defaultContent}
+        name={label}
       />
     </>
   )

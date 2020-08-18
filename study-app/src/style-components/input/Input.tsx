@@ -32,11 +32,10 @@ export const Input = ({
         width={width}
         height={height}
         fontSize={fontSize}
-        onChange={(ev: React.ChangeEvent<HTMLInputElement>): void =>
-          onChange(ev.target.value)
-        }
+        onChange={(ev: React.FormEvent<HTMLInputElement>): void => onChange(ev)}
         id={label}
         value={defaultContent}
+        name={label}
       />
     </>
   )

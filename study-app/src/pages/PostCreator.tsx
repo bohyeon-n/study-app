@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { SelectBox } from '../style-components/selectBox/SelectBox'
 import { OptionType } from '../style-components/selectBox/OptionType'
@@ -6,6 +6,7 @@ import { TextArea } from '../style-components/textArea/TextArea'
 import { DefaultButton } from '../style-components/button/DefaultButton'
 import { Input } from '../style-components/input/Input'
 import { Redirect } from 'react-router-dom'
+import { useInputs } from '../custom-hook/useInputs'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -57,27 +58,18 @@ export const PostCreator = () => {
     { label: '강원도', value: '강원도' }
   ]
 
+  const initialFormState = {
+    category: options[0].value,
+    location: locationOptions[0].value,
+    content: '',
+    title: ''
+  }
+
   const [toHome, setToHome] = useState(false)
-  const [selectedCategory, patchCategory] = useState(options[0].value)
-  const [selectedLocation, patchLocation] = useState(locationOptions[0].value)
-  const [content, patchContent] = useState('')
-  const [title, patchTitle] = useState('')
 
-  const onChangeCategory = (value: string) => {
-    patchCategory(value)
-  }
-
-  const onChangeLocation = (value: string) => {
-    patchLocation(value)
-  }
-
-  const onChangeTitle = (value: string) => {
-    patchTitle(value)
-  }
-
-  const onChangeContent = (value: string) => {
-    patchContent(value)
-  }
+  const [{ category, location, content, title }, onChange, reset] = useInputs(
+    initialFormState
+  )
 
   const onClickCreate = async () => {
     const requestOptions: RequestInit = {
@@ -85,8 +77,8 @@ export const PostCreator = () => {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify({
-        category: selectedCategory,
-        location: selectedLocation,
+        category: category,
+        location: location,
         title: title,
         content: content
       })
@@ -113,26 +105,28 @@ export const PostCreator = () => {
             width={200}
             height={40}
             options={options}
-            onChange={onChangeCategory}
-            selectedValue={selectedCategory}
+            onChange={onChange}
+            selectedValue={category}
             fontSize={16}
+            name={'category'}
           />
           <SelectBox
             width={200}
             height={40}
             fontSize={16}
             options={locationOptions}
-            onChange={onChangeLocation}
-            selectedValue={selectedLocation}
+            onChange={onChange}
+            selectedValue={location}
+            name={'location'}
           />
         </div>
         <div className="input__wrapper">
-          <Input onChange={onChangeTitle} label={'title'} fontSize={14} />
+          <Input onChange={onChange} label={'title'} fontSize={14} />
         </div>
       </HeaderWrapper>
       <TextArea
         height={500}
-        onChange={onChangeContent}
+        onChange={onChange}
         label={'content'}
         fontSize={14}
       />

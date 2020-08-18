@@ -41,7 +41,7 @@ export const PostProvider = ({
     dispatch({ type: SET_INIT_DATA, payload: initData })
   }
 
-  const addComment = (newData: any) => {
+  const addComment = (newData: Comment) => {
     dispatch({ type: ADD_COMMENT, payload: newData })
   }
 
