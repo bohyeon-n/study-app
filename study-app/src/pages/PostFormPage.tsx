@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { SelectBox } from '../style-components/selectBox/SelectBox'
-import { OptionType } from '../style-components/selectBox/OptionType'
 import { TextArea } from '../style-components/textArea/TextArea'
 import { DefaultButton } from '../style-components/button/DefaultButton'
 import { Input } from '../style-components/input/Input'
 import { Redirect } from 'react-router-dom'
 import { useInputs } from '../custom-hook/useInputs'
+import { categoryOptions, locationOptions } from '../constants/postOptions'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -42,24 +42,8 @@ const Buttons = styled.div`
 `
 
 export const PostFormPage = () => {
-  const options: OptionType<string>[] = [
-    { label: 'java', value: 'java' },
-    { label: 'javascript', value: 'javascript' },
-    { label: 'haha', value: 'haha' },
-    { label: 'hoho', value: 'hoho' }
-  ]
-
-  const locationOptions: OptionType<string>[] = [
-    { label: '충남', value: '충남' },
-    { label: '경기', value: '경기' },
-    { label: '서울', value: '서울' },
-    { label: '부산', value: '부산' },
-    { label: '광주', value: '광주' },
-    { label: '강원도', value: '강원도' }
-  ]
-
   const initialFormState = {
-    category: options[0].value,
+    category: categoryOptions[0].value,
     location: locationOptions[0].value,
     content: '',
     title: ''
@@ -104,7 +88,7 @@ export const PostFormPage = () => {
           <SelectBox
             width={200}
             height={40}
-            options={options}
+            options={categoryOptions}
             onChange={onChange}
             selectedValue={category}
             fontSize={16}

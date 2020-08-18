@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { SelectBox } from '../style-components/selectBox/SelectBox'
-import { OptionType } from '../style-components/selectBox/OptionType'
 import { TextArea } from '../style-components/textArea/TextArea'
 import { DefaultButton } from '../style-components/button/DefaultButton'
 import { Input } from '../style-components/input/Input'
 import { Redirect, useParams } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
+import { categoryOptions, locationOptions } from '../constants/postOptions'
 
 const HeaderWrapper = styled.div`
   .selectBox__wrapper {
@@ -44,30 +44,9 @@ const Buttons = styled.div`
 `
 
 export const PostUpdatePage = () => {
-  const options: OptionType<string>[] = [
-    { label: '언어', value: '언어' },
-    { label: 'CS', value: 'CS' },
-    { label: '취업', value: '취업' },
-    { label: '기타', value: '기타' }
-  ]
-
-  const locationOptions: OptionType<string>[] = [
-    { label: '서울', value: '서울' },
-    { label: '경기', value: '경기' },
-    { label: '인천', value: '인천' },
-    { label: '대전/충청/세종', value: '대전/충청/종종' },
-    { label: '부산/울산/경남', value: '부산/울산/경남' },
-    { label: '광주/전라', value: '광주/전라' },
-    { label: '대구/경북', value: '대구/경북' },
-    { label: '강원', value: '강원' },
-    { label: '제주', value: '제주' },
-    { label: '기타', value: '기타' },
-    { label: '온라인', value: '온라인' }
-  ]
-
   const { postId } = useParams()
   const [toPostPage, redirectPostPage] = useState(false)
-  const [selectedCategory, updateCategory] = useState(options[0].value)
+  const [selectedCategory, updateCategory] = useState(categoryOptions[0].value)
   const [selectedLocation, updateLocation] = useState(locationOptions[0].value)
   const [content, updateContent] = useState('')
   const [title, updateTitle] = useState('')
@@ -125,7 +104,7 @@ export const PostUpdatePage = () => {
           <SelectBox
             width={200}
             height={40}
-            options={options}
+            options={categoryOptions}
             onChange={onChangeCategory}
             selectedValue={selectedCategory}
             fontSize={16}
