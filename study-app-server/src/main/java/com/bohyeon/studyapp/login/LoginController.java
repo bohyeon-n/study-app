@@ -22,7 +22,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @Value("client_url")
+    @Value("${client_url}")
     String clientUrl;
 
     @GetMapping("/github-login")
