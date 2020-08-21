@@ -1,6 +1,7 @@
 package com.bohyeon.studyapp.login;
 
 import com.bohyeon.studyapp.exception.UserUnAuthorizedException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -21,6 +22,9 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    @Value("client_url")
+    String clientUrl;
+
     @GetMapping("/github-login")
     public RedirectView githubLogin() {
         RedirectView redirectView = new RedirectView();
@@ -40,7 +44,7 @@ public class LoginController {
         httpServletResponse.addCookie(cookie);
 
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:3000");
+        redirectView.setUrl(clientUrl);
         return redirectView;
     }
 
