@@ -12,8 +12,8 @@ export const CommentCreator = () => {
 
   const [comment, dispatchComment] = useState('')
 
-  const onChangeInput = (value: string) => {
-    dispatchComment(value)
+  const onChangeInput = (e: any) => {
+    dispatchComment(e.target.value)
   }
 
   const onClickRegister = async () => {
@@ -50,7 +50,7 @@ export const CommentCreator = () => {
       handleChangeInput={onChangeInput}
       handleClickRegister={onClickRegister}
       defaultText={defaultText}
-      disable={!user}
+      disable={!user.id}
     />
   )
 }
