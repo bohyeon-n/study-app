@@ -47,7 +47,7 @@ export const MainContainer: FunctionComponent = () => {
   const [createPostPage, dispatchRedirectToPost] = useState(false)
 
   const redirectPostPage = () => {
-    if (user) {
+    if (user.id) {
       dispatchRedirectToPost(true)
       return
     }
