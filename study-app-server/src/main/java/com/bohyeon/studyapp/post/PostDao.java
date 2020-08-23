@@ -90,7 +90,7 @@ public class PostDao {
         String wordThirdOrder = "%" + query;
 
         String sql = "SELECT p.id, p.title, p.content, p.created_time, p.category, p.location as location, p.view_count, p.author_id, " +
-                "COUNT(c.id) AS comment_count FROM post p LEFT JOIN comment c ON p.id = c.post_id WHERE p.title LIKE :word GROUP BY P.id " +
+                "COUNT(c.id) AS comment_count FROM post p LEFT JOIN comment c ON p.id = c.post_id WHERE p.title LIKE :word GROUP BY p.id " +
                 "ORDER BY CASE " +
                 "WHEN p.title LIKE :first THEN 1 " +
                 "WHEN p.title LIKE :second  THEN 2 " +
