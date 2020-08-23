@@ -6,9 +6,14 @@ import { PostItemWrapper, CommentBox } from './../components/post/PostItem'
 import { Link } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { UserActivity } from '../models/UserActivity'
-import { Post } from '../models/Post'
 
 const MyPageWrapper = styled.div``
+
+const AlertMessage = styled.div`
+  min-height: 300px;
+  text-align: center;
+  padding: 50px;
+`
 
 const UserInfoWrapper = styled.div`
   border: 2px solid ${basicTheme.borderColors.main};
@@ -100,8 +105,8 @@ export const MyPage: FunctionComponent = () => {
 
   useFetch(setUserActivity, `${process.env.REACT_APP_BASE_URL}/my-activity`)
 
-  return user == null ? (
-    <div>로그인 후 사용할 수 있는 서비스입니다. </div>
+  return user.id == null ? (
+    <AlertMessage>로그인 후 사용할 수 있는 서비스입니다. </AlertMessage>
   ) : (
     <MyPageWrapper>
       <UserInfoWrapper>
