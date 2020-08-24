@@ -60,7 +60,13 @@ const HeaderStyle = styled.header`
       }
 
       .logo {
+        width: 30px;
+        height: 30px;
         display: block !important;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       &.active {
@@ -90,6 +96,12 @@ const HeaderStyle = styled.header`
       align-items: center;
       padding-left: 10px;
       padding-right: 10px;
+      width: 30px;
+      height: 30px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .search-bar {
@@ -222,7 +234,9 @@ export const Header: FunctionComponent<HeaderProps> = ({ handleSearch }) => {
           </BurgerBar>
         </button>
         <Link to="/">
-          <div className="logo menu">HOME</div>
+          <div className="logo menu">
+            <img src={process.env.PUBLIC_URL + '/logo512.png'} alt="" />
+          </div>
         </Link>
         <div
           className={`header__item search-bar menu `}
