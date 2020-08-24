@@ -94,8 +94,8 @@ export const Comment: FunctionComponent<CommentProps> = ({
     changeAcitveCommentId(id)
   }
 
-  const handleChangeInput = (value: string) => {
-    updateCommentContent(value)
+  const handleChangeInput = (e: any) => {
+    updateCommentContent(e.target.value)
   }
 
   const handleClickRegister = async () => {
