@@ -33,7 +33,7 @@
 javar -jar build/libs/study-app-0.0.1-SNAPSHOT.jar
 ```
 
-8080 포트로 접속할 수 있다.
+8080번 포트로 접속할 수 있습니다. 
 
 ### 클라이언트
 
@@ -48,6 +48,7 @@ npm install
 ```
 npm start
 ```
+3000번 포트로 접속할 수 있습니다. 
 
 ## 기능
 
@@ -58,7 +59,7 @@ npm start
 - github oAuth 로그인 기능
 
 <details>
-<summary>이미지로 페이지 둘러보기</summary>
+<summary>**이미지로 페이지 둘러보기**</summary>
 
 <div markdown="1">
 
