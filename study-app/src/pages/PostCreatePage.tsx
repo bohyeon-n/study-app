@@ -54,8 +54,24 @@ export const PostFormPage = () => {
   const [{ category, location, content, title }, onChange, reset] = useInputs(
     initialFormState
   )
+  const [autoFocusElement, setAutoFocusElement] = useState('')
 
   const onClickCreate = async () => {
+    if (title === '') {
+      setAutoFocusElement('title')
+      setTimeout(() => {
+        setAutoFocusElement('')
+      }, 0)
+      return
+    }
+    if (content === '') {
+      setAutoFocusElement('content')
+      setTimeout(() => {
+        setAutoFocusElement('')
+      }, 0)
+      return
+    }
+
     const requestOptions: RequestInit = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -78,7 +94,7 @@ export const PostFormPage = () => {
 
     setToHome(true)
   }
-
+  console.log(autoFocusElement)
   return toHome ? (
     <Redirect to="/" />
   ) : (
@@ -105,7 +121,12 @@ export const PostFormPage = () => {
           />
         </div>
         <div className="input__wrapper">
-          <Input onChange={onChange} label={'title'} fontSize={14} />
+          <Input
+            onChange={onChange}
+            label={'title'}
+            fontSize={14}
+            autoFocus={autoFocusElement === 'title'}
+          />
         </div>
       </HeaderWrapper>
       <TextArea
@@ -113,6 +134,7 @@ export const PostFormPage = () => {
         onChange={onChange}
         label={'content'}
         fontSize={14}
+        autoFocus={autoFocusElement === 'content'}
       />
       <Buttons>
         <DefaultButton width={80} boldFont={true} onClick={onClickCreate}>

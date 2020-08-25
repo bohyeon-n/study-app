@@ -5,4 +5,5 @@ export interface InputProps {
   label: string
   fontSize?: number
   defaultContent?: string
+  autoFocus: boolean
 }

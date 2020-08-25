@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, RefObject } from 'react'
 import { InputProps } from './InputProps'
 import styled from 'styled-components'
 import { InputLabel } from '../inputLabel/InputLabel'
@@ -23,8 +23,15 @@ export const Input = ({
   onChange,
   label,
   fontSize,
-  defaultContent
+  defaultContent,
+  autoFocus
 }: InputProps) => {
+  const inputEl: RefObject<HTMLInputElement> = useRef(null)
+
+  if (autoFocus) {
+    inputEl && inputEl.current && inputEl.current.focus()
+  }
+
   return (
     <>
       <InputLabel label={label}>{label}: </InputLabel>
@@ -36,6 +43,7 @@ export const Input = ({
         id={label}
         value={defaultContent}
         name={label}
+        ref={inputEl}
       />
     </>
   )

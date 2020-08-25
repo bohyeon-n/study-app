@@ -6,4 +6,5 @@ export interface TextAreaProps {
   fontSize?: number
   defaultContent?: string
   disable?: boolean
+  autoFocus: boolean
 }
