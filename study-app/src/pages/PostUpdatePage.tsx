@@ -47,6 +47,7 @@ const Buttons = styled.div`
 export const PostUpdatePage = () => {
   const { postId } = useParams()
   const [toPostPage, redirectPostPage] = useState(false)
+  const [autoFocusElement, setAutoFocusElement] = useState('')
 
   const [{ category, location, content, title }, onChange, reset] = useInputs({
     category: '',
@@ -56,6 +57,21 @@ export const PostUpdatePage = () => {
   })
 
   const onClickUpdate = async () => {
+    if (content === '') {
+      setAutoFocusElement('content')
+      setTimeout(() => {
+        setAutoFocusElement('')
+      }, 0)
+      return
+    }
+
+    if (title === '') {
+      setAutoFocusElement('title')
+      setTimeout(() => {
+        setAutoFocusElement('')
+      }, 0)
+      return
+    }
     const requestOptions: RequestInit = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -116,6 +132,7 @@ export const PostUpdatePage = () => {
             label={'title'}
             fontSize={14}
             defaultContent={title}
+            autoFocus={autoFocusElement === 'title'}
           />
         </div>
       </HeaderWrapper>
@@ -125,6 +142,7 @@ export const PostUpdatePage = () => {
         label={'content'}
         fontSize={14}
         defaultContent={content}
+        autoFocus={autoFocusElement === 'content'}
       />
       <Buttons>
         <DefaultButton width={80} boldFont={true} onClick={onClickUpdate}>

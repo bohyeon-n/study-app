@@ -12,13 +12,18 @@ export const CommentCreator = () => {
 
   const [comment, dispatchComment] = useState('')
 
+  const [isAutoFocus, setAutoFocusState] = useState(false)
+
   const onChangeInput = (e: any) => {
     dispatchComment(e.target.value)
   }
 
-  const onClickRegister = async () => {
+  const onClickCreate = async () => {
     if (comment === '') {
-      alert('내용을 입력해주세요.')
+      setAutoFocusState(true)
+      setTimeout(() => {
+        setAutoFocusState(false)
+      }, 0)
       return
     }
 
@@ -48,9 +53,10 @@ export const CommentCreator = () => {
   return (
     <CommentInputBox
       handleChangeInput={onChangeInput}
-      handleClickRegister={onClickRegister}
+      handleClickRegister={onClickCreate}
       defaultText={defaultText}
       disable={!user.id}
+      autoFocus={isAutoFocus}
     />
   )
 }

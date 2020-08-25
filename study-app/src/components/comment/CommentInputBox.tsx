@@ -27,13 +27,15 @@ export interface CommentInputBoxProps {
   handleChangeInput: Function
   defaultText: string
   handleClickRegister: Function
+  autoFocus: boolean
 }
 
 export const CommentInputBox: FunctionComponent<CommentInputBoxProps> = ({
   disable,
   handleChangeInput,
   defaultText,
-  handleClickRegister
+  handleClickRegister,
+  autoFocus
 }) => {
   return (
     <CommentCreatorWrapper>
@@ -46,6 +48,7 @@ export const CommentInputBox: FunctionComponent<CommentInputBoxProps> = ({
             fontSize={16}
             defaultContent={'로그인을 하셔야 댓글에 글을 쓸 수 있습니다.'}
             disable={true}
+            autoFocus={false}
           />
           <DefaultButton
             height={34}
@@ -64,6 +67,7 @@ export const CommentInputBox: FunctionComponent<CommentInputBoxProps> = ({
             label={'comment'}
             fontSize={16}
             defaultContent={defaultText}
+            autoFocus={autoFocus}
           />
           <DefaultButton height={34} onClick={handleClickRegister}>
             등록

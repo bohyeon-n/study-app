@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { TextAreaProps } from './TextAreaProps'
 import { InputLabel } from '../inputLabel/InputLabel'
@@ -29,8 +29,15 @@ export const TextArea = ({
   label,
   fontSize,
   defaultContent,
-  disable
+  disable,
+  autoFocus
 }: TextAreaProps) => {
+  const textAreaEl = useRef<HTMLTextAreaElement>(null)
+
+  if (autoFocus) {
+    textAreaEl.current && textAreaEl.current.focus()
+  }
+
   return (
     <>
       <InputLabel label={label}>{label}: </InputLabel>
@@ -44,6 +51,7 @@ export const TextArea = ({
         height={height}
         value={defaultContent}
         name={label}
+        ref={textAreaEl}
       />
     </>
   )

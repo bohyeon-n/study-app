@@ -74,6 +74,8 @@ export const Comment: FunctionComponent<CommentProps> = ({
 
   const [commentContent, updateCommentContent] = useState('')
 
+  const [isAutoFocus, setAutoFocusState] = useState(false)
+
   const onClickDeleteBtn = async (id: number) => {
     const requestOptions: RequestInit = {
       method: 'DELETE',
@@ -99,9 +101,16 @@ export const Comment: FunctionComponent<CommentProps> = ({
   }
 
   const handleClickRegister = async () => {
+    if (commentContent === '') {
+      setAutoFocusState(true)
+      setTimeout(() => {
+        setAutoFocusState(false)
+      }, 0)
+      return
+    }
+
     let preComment: CommentModel = {} as CommentModel
     let updatedComment: CommentModel = {} as CommentModel
-
     post.comments.forEach(comment => {
       if (comment.id === activeCommentInputId) {
         preComment = { ...comment }
@@ -178,6 +187,7 @@ export const Comment: FunctionComponent<CommentProps> = ({
               handleChangeInput={handleChangeInput}
               defaultText={commentContent}
               disable={false}
+              autoFocus={isAutoFocus}
             />
           )}
         </CommentItem>
