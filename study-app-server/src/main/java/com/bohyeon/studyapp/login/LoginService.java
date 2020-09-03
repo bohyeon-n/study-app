@@ -23,6 +23,9 @@ public class LoginService {
     @Value("${github_redirect_url}")
     private String GITHUB_REDIRECT_URL;
 
+    @Value("${jwt_secret_key}")
+    private String JWT_SECRET_KEY;
+
     private String GITHUB_REQUEST_URL = "https://github.com/login/oauth";
 
     private final LoginRepository loginRepository;
@@ -63,15 +66,15 @@ public class LoginService {
 //        Todo
 //        예외 처리
 
-        if (!loginRepository.findByUsername(user.getUsername()).isPresent()) {
+        if (loginRepository.findByUsername(user.getUsername()).isEmpty()) {
             join(user);
         }
 
-        return Jwt.generateJwt(user.getUsername());
+        return new Jwt(JWT_SECRET_KEY).generateJwt(user.getUsername());
     }
 
-    public UserResponse getLoginUser(String jwt) throws UserUnAuthorizedException {
-        String username = Jwt.parseIdFromJwt(jwt);
+    public UserResponse getLoginUser(String token) throws UserUnAuthorizedException {
+        String username = new Jwt(JWT_SECRET_KEY).parseIdFromJwt(token);
 
         Optional<UserResponse> user = loginRepository.findByUsername(username);
         if(user.isPresent()) {
@@ -81,8 +84,8 @@ public class LoginService {
         throw new UserUnAuthorizedException();
     }
 
-    public boolean isValidUserByJwt(String jwt) {
-        String username = Jwt.parseIdFromJwt(jwt);
+    public boolean isValidUserByJwt(String token) {
+        String username = new Jwt(JWT_SECRET_KEY).parseIdFromJwt(token);
         return loginRepository.findByUsername(username).isPresent();
     }
 }
