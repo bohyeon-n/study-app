@@ -1,6 +1,6 @@
 {
-  "short_name": "개발자 스터디",
-  "name": "개발자 스터디 모집 앱",
+  "short_name": "거북이 스터디",
+  "name": "거북이 스터디 모집 서비스",
   "icons": [{
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
