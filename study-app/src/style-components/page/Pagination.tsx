@@ -129,7 +129,7 @@ export const Pagingation: FunctionComponent<PageProps> = ({
           pcMaxWidth={pcUnit * CELL_WIDTH}
           pcX={calcX(pcUnit) * -CELL_WIDTH}
         >
-          {totalPage > 1 &&
+          {totalPage > 0 &&
             new Array(totalPage).fill(0).map((n, index) => (
               <NumberStyle
                 className={currentPage === index + 1 ? 'active' : ''}
