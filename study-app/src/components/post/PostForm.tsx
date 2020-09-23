@@ -47,7 +47,7 @@ const ImageUploadBtn = styled.div`
 `
 
 const Preview = styled.div`
-  height: 500px;
+  min-height: 500px;
   border: 1px solid ${basicTheme.borderColors.dark};
   padding: 0.5rem;
 `
@@ -158,9 +158,7 @@ export const PostForm = (postFormState: postFormProps) => {
         requestOptions
       ).then(response => response.json())
       const imgSrc = `${process.env.REACT_APP_BASE_URL}/images/${imageId}`
-      onChangeContent(PostInput.content, `${content}\n![](${imgSrc})`)
-      setAutoFocusElement(PostInput.content)
-
+      onChangeContent(PostInput.content, `${content}\n![](${imgSrc}) \n`)
       setLoading(false)
     }
   }
