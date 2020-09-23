@@ -68,6 +68,53 @@ const ImageUploadBtn = styled.div`
   }
 `
 
+const Preview = styled.div`
+  height: 500px;
+  border: 1px solid ${basicTheme.borderColors.dark};
+  padding: 0.5rem;
+`
+
+const Tab = styled.div`
+  border-bottom: 1px solid ${basicTheme.borderColors.dark};
+  margin-bottom: 10px;
+  padding-left: 8px;
+
+  .tab {
+    &:focus {
+      outline: 0;
+    }
+    width: 100px;
+    height: 34px;
+    padding: 8px 16px;
+    border: 1px solid ${basicTheme.borderColors.dark};
+    margin-bottom: -1px;
+    margin-left: -1px;
+    border-radius: 6px 6px 0 0;
+    background: ${basicTheme.bgColors.hover};
+    margin-right: 2px;
+    &.active {
+      border-bottom: 1px solid #fff;
+      background: #fff;
+    }
+  }
+`
+
+const EditTools = styled.div`
+  padding: 10px 0;
+  display: flex;
+  .tool {
+    min-width: 30px;
+    margin-right: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #fff;
+    border: 1px solid ${basicTheme.borderColors.dark};
+    &:hover {
+      color: ${basicTheme.fontColors.allow};
+    }
+  }
+`
+
 export const PostFormPage = () => {
   const initialFormState = {
     category: categoryOptions[0].value,
@@ -77,6 +124,7 @@ export const PostFormPage = () => {
   }
 
   const [toHome, setToHome] = useState(false)
+  const [isWriteTab, setWriteTab] = useState(true)
 
   const [
     { category, location, content, title },
@@ -125,6 +173,14 @@ export const PostFormPage = () => {
     setToHome(true)
   }
 
+  const onClickEditIcon = (icon: string) => {
+    if (icon === 'head') {
+      onChangeContent('content', content + ` ### `)
+    }
+
+    setAutoFocusElement('content')
+  }
+
   const onClickImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const formData = new FormData()
     if (e.target.files !== null) {
@@ -147,6 +203,7 @@ export const PostFormPage = () => {
         `${content} ![${imageId}](${process.env.REACT_APP_BASE_URL}/images/${imageId})`
       )
     }
+    setAutoFocusElement('content')
   }
 
   return toHome ? (
@@ -155,15 +212,6 @@ export const PostFormPage = () => {
     <PostFormPageWrapper>
       <HeaderWrapper>
         <div className="selectBox__wrapper">
-          <ImageUploadBtn className="image-upload">
-            <label htmlFor="image-upload">이미지 업로드</label>
-            <input
-              type="file"
-              id="image-upload"
-              onChange={onClickImageUpload}
-            />
-          </ImageUploadBtn>
-
           <SelectBox
             width={200}
             height={40}
@@ -192,17 +240,54 @@ export const PostFormPage = () => {
           />
         </div>
       </HeaderWrapper>
-      <TextArea
-        height={500}
-        onChange={onChange}
-        label={'content'}
-        fontSize={14}
-        autoFocus={autoFocusElement === 'content'}
-        value={content}
-      />
-      <div className="parsed" id="parsed">
-        <ReactMarkdown source={content} />
+      <div className="content-editor">
+        <Tab className="content-editor-tab">
+          <button
+            className={`${isWriteTab ? 'active tab' : 'tab'}`}
+            onClick={e => setWriteTab(true)}
+          >
+            Write
+          </button>
+          <button
+            className={`${!isWriteTab ? 'active tab' : 'tab'}`}
+            onClick={e => setWriteTab(false)}
+          >
+            Preview
+          </button>
+        </Tab>
+        <div className="content-view">
+          {isWriteTab ? (
+            <div className="write">
+              <EditTools className="write-tool">
+                <button className="tool" onClick={e => onClickEditIcon('head')}>
+                  H
+                </button>
+                <ImageUploadBtn className="image-upload">
+                  <label htmlFor="image-upload">이미지 업로드</label>
+                  <input
+                    type="file"
+                    id="image-upload"
+                    onChange={onClickImageUpload}
+                  />
+                </ImageUploadBtn>
+              </EditTools>
+              <TextArea
+                height={500}
+                onChange={onChange}
+                label={'content'}
+                fontSize={14}
+                autoFocus={autoFocusElement === 'content'}
+                value={content}
+              />
+            </div>
+          ) : (
+            <Preview>
+              <ReactMarkdown source={content} />
+            </Preview>
+          )}
+        </div>
       </div>
+
       <Buttons>
         <DefaultButton width={80} boldFont={true} onClick={onClickCreate}>
           등록
