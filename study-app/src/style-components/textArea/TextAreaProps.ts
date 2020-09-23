@@ -4,7 +4,7 @@ export interface TextAreaProps {
   onChange: Function
   label: string
   fontSize?: number
-  defaultContent?: string
   disable?: boolean
   autoFocus: boolean
+  value?: string
 }

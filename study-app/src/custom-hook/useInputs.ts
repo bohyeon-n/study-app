@@ -1,17 +1,20 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 
-export const useInputs = (initialForm: any) => {
-  const [form, setForm] = useState(initialForm)
+export function useInputs(initialForm: any) {
+  const [state, dispatch] = useState(initialForm)
 
-  const onChange = useCallback(e => {
+  const onChange = (e: any) => {
     const { name, value } = e.target
-    setForm((form: any) => ({ ...form, [name]: value }))
-  }, [])
+    dispatch({ ...state, [name]: value })
+  }
 
-  const reset = useCallback(
-    data => (data == null ? setForm(initialForm) : setForm(data)),
-    [initialForm]
-  )
+  const onchangeContent = (name: string, value: string) => {
+    dispatch({ ...state, [name]: value })
+  }
 
-  return [form, onChange, reset]
+  const setAllValue = (data: any) => {
+    dispatch(data)
+  }
+
+  return [state, onChange, onchangeContent, setAllValue]
 }

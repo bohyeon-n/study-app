@@ -28,9 +28,9 @@ export const TextArea = ({
   onChange,
   label,
   fontSize,
-  defaultContent,
   disable,
-  autoFocus
+  autoFocus,
+  value
 }: TextAreaProps) => {
   const textAreaEl = useRef<HTMLTextAreaElement>(null)
 
@@ -49,7 +49,7 @@ export const TextArea = ({
         onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => onChange(ev)}
         width={width}
         height={height}
-        value={defaultContent}
+        value={value ? value : ''}
         name={label}
         ref={textAreaEl}
       />
@@ -67,8 +67,8 @@ export const NoBorderTextArea = ({
   onChange,
   label,
   fontSize,
-  defaultContent,
-  disable
+  disable,
+  value
 }: TextAreaProps) => {
   return (
     <>
@@ -82,8 +82,8 @@ export const NoBorderTextArea = ({
         }
         width={width}
         height={height}
-        value={defaultContent}
         disable={disable}
+        value={value ? value : ''}
       />
     </>
   )

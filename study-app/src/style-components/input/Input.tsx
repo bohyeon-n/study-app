@@ -23,8 +23,8 @@ export const Input = ({
   onChange,
   label,
   fontSize,
-  defaultContent,
-  autoFocus
+  autoFocus,
+  value
 }: InputProps) => {
   const inputEl: RefObject<HTMLInputElement> = useRef(null)
 
@@ -41,7 +41,7 @@ export const Input = ({
         fontSize={fontSize}
         onChange={(ev: React.FormEvent<HTMLInputElement>): void => onChange(ev)}
         id={label}
-        value={defaultContent}
+        value={value ? value : ''}
         name={label}
         ref={inputEl}
       />

@@ -46,7 +46,7 @@ export const CommentInputBox: FunctionComponent<CommentInputBoxProps> = ({
             onChange={handleChangeInput}
             label={'comment'}
             fontSize={16}
-            defaultContent={'로그인을 하셔야 댓글에 글을 쓸 수 있습니다.'}
+            value={'로그인을 하셔야 댓글에 글을 쓸 수 있습니다.'}
             disable={true}
             autoFocus={false}
           />
@@ -66,7 +66,7 @@ export const CommentInputBox: FunctionComponent<CommentInputBoxProps> = ({
             onChange={handleChangeInput}
             label={'comment'}
             fontSize={16}
-            defaultContent={defaultText}
+            value={defaultText}
             autoFocus={autoFocus}
           />
           <DefaultButton height={34} onClick={handleClickRegister}>

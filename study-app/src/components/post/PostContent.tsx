@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { PostContext, PostContextProps } from '../../stores/PostStore'
 import styled from 'styled-components'
+import { MarkdownToHtml } from './MarkdownToHtml'
 
 const PostContentWrapper = styled.div`
   white-space: pre;
@@ -14,7 +15,9 @@ const PostContentWrapper = styled.div`
 export const PostContent = () => {
   const { post }: PostContextProps = useContext(PostContext)
   return post ? (
-    <PostContentWrapper>{post.content}</PostContentWrapper>
+    <PostContentWrapper>
+      <MarkdownToHtml source={post.content}></MarkdownToHtml>
+    </PostContentWrapper>
   ) : (
     <div>....</div>
   )
