@@ -30,7 +30,8 @@ export const TextArea = ({
   fontSize,
   defaultContent,
   disable,
-  autoFocus
+  autoFocus,
+  value
 }: TextAreaProps) => {
   const textAreaEl = useRef<HTMLTextAreaElement>(null)
 
@@ -49,7 +50,7 @@ export const TextArea = ({
         onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => onChange(ev)}
         width={width}
         height={height}
-        value={defaultContent}
+        value={value ? value : defaultContent}
         name={label}
         ref={textAreaEl}
       />

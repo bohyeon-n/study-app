@@ -1,17 +1,25 @@
-import { useState, useCallback } from 'react'
+import { useReducer } from 'react'
 
-export const useInputs = (initialForm: any) => {
-  const [form, setForm] = useState(initialForm)
+function reducer(state: any, action: any) {
+  return {
+    ...state,
+    [action.name]: action.value
+  }
+}
 
-  const onChange = useCallback(e => {
-    const { name, value } = e.target
-    setForm((form: any) => ({ ...form, [name]: value }))
-  }, [])
+export function useInputs(initialForm: any) {
+  const [state, dispatch] = useReducer(reducer, initialForm)
 
-  const reset = useCallback(
-    data => (data == null ? setForm(initialForm) : setForm(data)),
-    [initialForm]
-  )
+  const onChange = (e: any) => {
+    dispatch(e.target)
+  }
 
-  return [form, onChange, reset]
+  const onchangeContent = (name: string, value: string) => {
+    dispatch({ name: name, value: value })
+  }
+
+  const reset = () => {
+    dispatch(initialForm)
+  }
+  return [state, onChange, onchangeContent, reset]
 }

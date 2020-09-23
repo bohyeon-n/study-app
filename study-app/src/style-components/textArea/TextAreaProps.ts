@@ -7,4 +7,5 @@ export interface TextAreaProps {
   defaultContent?: string
   disable?: boolean
   autoFocus: boolean
+  value?: string
 }
