@@ -1,25 +1,20 @@
-import { useReducer } from 'react'
-
-function reducer(state: any, action: any) {
-  return {
-    ...state,
-    [action.name]: action.value
-  }
-}
+import { useState } from 'react'
 
 export function useInputs(initialForm: any) {
-  const [state, dispatch] = useReducer(reducer, initialForm)
+  const [state, dispatch] = useState(initialForm)
 
   const onChange = (e: any) => {
-    dispatch(e.target)
+    const { name, value } = e.target
+    dispatch({ ...state, [name]: value })
   }
 
   const onchangeContent = (name: string, value: string) => {
-    dispatch({ name: name, value: value })
+    dispatch({ ...state, [name]: value })
   }
 
-  const reset = () => {
-    dispatch(initialForm)
+  const setAllValue = (data: any) => {
+    dispatch(data)
   }
-  return [state, onChange, onchangeContent, reset]
+
+  return [state, onChange, onchangeContent, setAllValue]
 }

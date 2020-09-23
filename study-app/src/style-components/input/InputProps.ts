@@ -4,6 +4,6 @@ export interface InputProps {
   onChange: Function
   label: string
   fontSize?: number
-  defaultContent?: string
   autoFocus: boolean
+  value: string
 }

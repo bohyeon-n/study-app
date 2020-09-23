@@ -1,28 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { SelectBox } from '../style-components/selectBox/SelectBox'
-import { TextArea } from '../style-components/textArea/TextArea'
 import { DefaultButton } from '../style-components/button/DefaultButton'
-import { Input } from '../style-components/input/Input'
 import { Redirect, useParams } from 'react-router-dom'
 import { useFetch } from '../custom-hook/useFetch'
 import { PostDetail } from '../models/PostDetail'
-import { categoryOptions, locationOptions } from '../constants/postOptions'
 import { useInputs } from '../custom-hook/useInputs'
-
-const HeaderWrapper = styled.div`
-  .selectBox__wrapper {
-    display: flex;
-    div {
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-  }
-  .input__wrapper {
-    margin-bottom: 25px;
-  }
-`
+import { PostForm } from '../components/post/PostForm'
 
 const PostCreatorWrapper = styled.div`
   width: 100%;
@@ -49,7 +33,12 @@ export const PostUpdatePage = () => {
   const [toPostPage, redirectPostPage] = useState(false)
   const [autoFocusElement, setAutoFocusElement] = useState('')
 
-  const [{ category, location, content, title }, onChange, reset] = useInputs({
+  const [
+    { category, location, content, title },
+    onChange,
+    onChangeContent,
+    setAllValue
+  ] = useInputs({
     category: '',
     location: '',
     content: '',
@@ -93,7 +82,7 @@ export const PostUpdatePage = () => {
   }
 
   useFetch((data: PostDetail) => {
-    reset({
+    setAllValue({
       category: data.category !== null ? data.category : '',
       location: data.location !== null ? data.location : '',
       content: data.content !== null ? data.content : '',
@@ -105,44 +94,12 @@ export const PostUpdatePage = () => {
     <Redirect to={`/posts/${postId}`} />
   ) : (
     <PostCreatorWrapper>
-      <HeaderWrapper>
-        <div className="selectBox__wrapper">
-          <SelectBox
-            width={200}
-            height={40}
-            options={categoryOptions}
-            onChange={onChange}
-            selectedValue={category}
-            fontSize={16}
-            name={'category'}
-          />
-          <SelectBox
-            width={200}
-            height={40}
-            fontSize={16}
-            options={locationOptions}
-            onChange={onChange}
-            selectedValue={location}
-            name={'location'}
-          />
-        </div>
-        <div className="input__wrapper">
-          <Input
-            onChange={onChange}
-            label={'title'}
-            fontSize={14}
-            defaultContent={title}
-            autoFocus={autoFocusElement === 'title'}
-          />
-        </div>
-      </HeaderWrapper>
-      <TextArea
-        height={500}
+      <PostForm
         onChange={onChange}
-        label={'content'}
-        fontSize={14}
-        defaultContent={content}
-        autoFocus={autoFocusElement === 'content'}
+        onChangeContent={onChangeContent}
+        value={{ content, title, location, category }}
+        autoFocusElement={autoFocusElement}
+        setAutoFocusElement={setAutoFocusElement}
       />
       <Buttons>
         <DefaultButton width={80} boldFont={true} onClick={onClickUpdate}>
