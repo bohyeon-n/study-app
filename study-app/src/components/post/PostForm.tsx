@@ -50,6 +50,9 @@ const Preview = styled.div`
   min-height: 500px;
   border: 1px solid ${basicTheme.borderColors.dark};
   padding: 0.5rem;
+  img {
+    max-width: 100%;
+  }
 `
 
 const Tab = styled.div`
