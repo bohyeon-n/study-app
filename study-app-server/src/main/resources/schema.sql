@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS user;
-
+DROP TABLE IF EXISTS image;
 
 CREATE TABLE user
 (
@@ -32,7 +32,7 @@ CREATE TABLE comment
     created_time datetime
 );
 
-CREATE TABLE IMAGE
+CREATE TABLE image
 (
     id      bigint primary key auto_increment,
     name    varchar(512),
