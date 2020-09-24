@@ -10,6 +10,9 @@ const PostContentWrapper = styled.div`
   line-height: 1.6;
   padding: 1rem;
   box-sizing: border-box;
+  img {
+    max-width: 100%;
+  }
 `
 
 export const PostContent = () => {
