@@ -33,7 +33,6 @@ public class UserService {
         List<PostResponseDto> posts = postService.findByUserId(id);
         List<Comment> comments = commentService.findByUserId(id);
         UserActivity userActivity = new UserActivity(posts, comments);
-        System.out.println(userActivity);
         return userActivity;
     }
 }

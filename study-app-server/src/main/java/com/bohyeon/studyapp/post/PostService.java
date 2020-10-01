@@ -59,9 +59,7 @@ public class PostService {
         postDao.updatePost(id, postRequestDto);
         PostDetailResponse newPost = postDao.findById(id);
         newPost.setAuthor(userService.findById(authorId));
-        System.out.println(newPost);
         PostResponseDto newPostResponse = new PostResponseDto(newPost);
-        System.out.println(newPostResponse);
         return newPostResponse;
     }
 

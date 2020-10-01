@@ -39,7 +39,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         }
 
         Long userId = loginService.getLoginUser(jwt).getId();
-        System.out.println("interceptor userId" + userId);
         request.setAttribute("userId", userId);
 
         return true;

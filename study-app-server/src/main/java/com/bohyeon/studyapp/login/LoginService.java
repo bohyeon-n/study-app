@@ -47,8 +47,6 @@ public class LoginService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.AUTHORIZATION, String.format("%s %s", loginToken.getTokenType(), loginToken.getAccessToken()));
         HttpEntity entity = new HttpEntity(httpHeaders);
-        ResponseEntity responseString = restTemplate.exchange(requestUrl, HttpMethod.GET, entity, String.class);
-        System.out.println(responseString);
         ResponseEntity<GithubUser> response = restTemplate.exchange(requestUrl, HttpMethod.GET, entity, GithubUser.class);
         return response.getBody();
     }

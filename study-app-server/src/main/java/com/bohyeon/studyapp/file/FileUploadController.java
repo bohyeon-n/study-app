@@ -13,7 +13,7 @@ import java.util.zip.Inflater;
 @RestController
 public class FileUploadController {
 
-    FileService fileService;
+    private final FileService fileService;
 
     public FileUploadController(FileService fileService) {
         this.fileService = fileService;
@@ -22,7 +22,6 @@ public class FileUploadController {
     @PostMapping("/images")
     public Long uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
         Image image = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
-        System.out.println(image);
         return fileService.addImage(image);
     }
 
@@ -49,7 +48,6 @@ public class FileUploadController {
             try {
                 outputStream.close();
             } catch (IOException e) {
-                System.out.println("compressed Image Byte Size -" + outputStream.toByteArray().length);
             }
         }
         return outputStream.toByteArray();
