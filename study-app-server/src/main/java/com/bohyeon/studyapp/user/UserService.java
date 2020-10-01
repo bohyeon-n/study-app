@@ -21,7 +21,7 @@ public class UserService {
     public UserService(UserCrudRepository userCrudRepository, @Lazy CommentService commentService, @Lazy PostService postService) {
         this.userCrudRepository = userCrudRepository;
         this.postService = postService;
-        this.commentService  = commentService;
+        this.commentService = commentService;
     }
 
     public User findById(Long id) {
@@ -30,8 +30,8 @@ public class UserService {
     }
 
     public UserActivity findByActivityByUserId(Long id) {
-        List<PostResponseDto> posts =  postService.findByUserId(id);
-        List<Comment> comments =  commentService.findByUserId(id);
+        List<PostResponseDto> posts = postService.findByUserId(id);
+        List<Comment> comments = commentService.findByUserId(id);
         UserActivity userActivity = new UserActivity(posts, comments);
         System.out.println(userActivity);
         return userActivity;

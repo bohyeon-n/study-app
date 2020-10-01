@@ -16,7 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(LoginService loginService , UserService userService) {
+    public UserController(LoginService loginService, UserService userService) {
         this.userService = userService;
         this.loginService = loginService;
     }
@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/my-activity")
     public ResponseEntity<UserActivity> userActivity(@CookieValue("login_token") String loginToken) throws UserUnAuthorizedException {
         UserResponse user = loginService.getLoginUser(loginToken);
-        UserActivity userActivity =  userService.findByActivityByUserId(user.getId());
+        UserActivity userActivity = userService.findByActivityByUserId(user.getId());
         return new ResponseEntity<>(userActivity, HttpStatus.OK);
     }
 }

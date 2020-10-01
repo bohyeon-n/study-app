@@ -14,21 +14,16 @@ import java.util.Optional;
 @Service
 public class LoginService {
 
+    private final LoginRepository loginRepository;
     @Value("${github_client_id}")
     private String GITHUB_CLIENT_ID;
-
     @Value("${github_client_secret}")
     private String GITHUB_CLIENT_SECRET;
-
     @Value("${github_redirect_url}")
     private String GITHUB_REDIRECT_URL;
-
     @Value("${jwt_secret_key}")
     private String JWT_SECRET_KEY;
-
     private String GITHUB_REQUEST_URL = "https://github.com/login/oauth";
-
-    private final LoginRepository loginRepository;
 
     public LoginService(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
@@ -77,7 +72,7 @@ public class LoginService {
         String username = new Jwt(JWT_SECRET_KEY).parseIdFromJwt(token);
 
         Optional<UserResponse> user = loginRepository.findByUsername(username);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             return user.get();
         }
 

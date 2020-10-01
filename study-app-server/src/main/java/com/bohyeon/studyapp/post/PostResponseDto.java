@@ -41,7 +41,7 @@ public class PostResponseDto {
         this.category = postDetailResponse.getCategory();
         try {
             this.commentCount = (long) postDetailResponse.getComments().size();
-        }catch(Exception e) {
+        } catch (Exception e) {
             this.commentCount = 0L;
         }
         this.viewCount = postDetailResponse.getViewCount();
@@ -63,32 +63,64 @@ public class PostResponseDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getCreatedTime() {
         return createdTime;
     }
 
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
     public String getLocation() {
         return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getCategory() {
         return category;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Long getCommentCount() {
         return commentCount;
+    }
+
+    public void setCommentCount(Long commentCount) {
+        this.commentCount = commentCount;
     }
 
     public Long getViewCount() {
         return viewCount;
     }
 
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
+    }
+
     public User getAuthor() {
         return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Long getAuthorId() {
@@ -97,37 +129,5 @@ public class PostResponseDto {
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setCommentCount(Long commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public void setViewCount(Long viewCount) {
-        this.viewCount = viewCount;
     }
 }

@@ -21,7 +21,7 @@ public class FileUploadController {
 
     @PostMapping("/images")
     public Long uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
-        Image image = new Image(file.getName(), file.getContentType(), compressBytes(file.getBytes()));
+        Image image = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
         System.out.println(image);
         return fileService.addImage(image);
     }
