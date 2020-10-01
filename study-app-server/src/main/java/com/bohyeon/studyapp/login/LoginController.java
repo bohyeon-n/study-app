@@ -17,13 +17,12 @@ import javax.websocket.server.PathParam;
 public class LoginController {
 
     private final LoginService loginService;
+    @Value("${client_url}")
+    String clientUrl;
 
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
-
-    @Value("${client_url}")
-    String clientUrl;
 
     @GetMapping("/github-login")
     public RedirectView githubLogin() {

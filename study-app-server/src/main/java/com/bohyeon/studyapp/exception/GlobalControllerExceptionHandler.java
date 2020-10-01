@@ -14,7 +14,7 @@ import java.util.Map;
 public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(UserForbiddenException.class)
-    public ResponseEntity<Object> handleUserForbiddenException (UserForbiddenException ex, WebRequest request) {
+    public ResponseEntity<Object> handleUserForbiddenException(UserForbiddenException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage());

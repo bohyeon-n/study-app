@@ -39,7 +39,7 @@ public class CommentService {
 
 
     public Comment update(Long id, CommentRequest commentRequest, Long userId) throws UserForbiddenException {
-        if(!userId.equals(commentRepository.findById(id).getAuthorId())) {
+        if (!userId.equals(commentRepository.findById(id).getAuthorId())) {
             throw new UserForbiddenException();
         }
 
@@ -48,7 +48,7 @@ public class CommentService {
     }
 
     public void delete(Long id, Long userId) throws UserForbiddenException {
-        if(!userId.equals(commentRepository.findById(id).getAuthorId())) {
+        if (!userId.equals(commentRepository.findById(id).getAuthorId())) {
             throw new UserForbiddenException();
         }
 

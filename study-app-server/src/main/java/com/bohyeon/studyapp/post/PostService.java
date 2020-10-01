@@ -62,7 +62,7 @@ public class PostService {
         System.out.println(newPost);
         PostResponseDto newPostResponse = new PostResponseDto(newPost);
         System.out.println(newPostResponse);
-        return newPostResponse; 
+        return newPostResponse;
     }
 
     public List<PostResponseDto> findByUserId(Long id) {

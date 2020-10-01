@@ -14,7 +14,7 @@ public class FileService {
         return imageRepository.findByName(name).orElseThrow();
     }
 
-    public Long addImage (Image image) {
+    public Long addImage(Image image) {
         return imageRepository.addImage(image);
     }
 
