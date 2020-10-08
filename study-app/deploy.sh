@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-echo "> client 배포"
+echo "[$(date)] client deploy" >> /home/ubuntu/deploy.log
 
 sudo systemctl reload apache2 
