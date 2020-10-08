@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy to amazon ec2 
+name: CI 
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the dev branch
@@ -49,23 +49,17 @@ jobs:
     
     strategy: 
       matrix: 
-        node-version: [12.16.x]
+        node-version: [8.x, 10.x, 12.x]
 
     steps: 
       - name: action checkout 
         uses: actions/checkout@v2 
-        
-      - name: node.js install 
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1 
         with: 
-          node-version: ${{matrix.node-version}}
-    
-      - name: install npm 
-        run: npm install 
-        
-      - name: front build 
-        run: npm run build 
-          
+          node-version: ${{ matrix.node-version }} 
+      - run: npm install 
+      - run: npm run build --if-present           
     
     
      
