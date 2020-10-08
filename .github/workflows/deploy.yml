@@ -66,4 +66,4 @@ jobs:
           CI: true
       
       - name: npm 빌드
-        run: npm run build 
+        run: npm run build --verbose
