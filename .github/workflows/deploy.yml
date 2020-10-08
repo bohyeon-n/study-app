@@ -45,7 +45,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: client
+        working-directory: study-app
         
     strategy:
       matrix:
@@ -60,7 +60,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: npm 설치
+      - name: install dependency 
         run: npm install
       
       - name: npm 빌드
