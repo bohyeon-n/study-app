@@ -27,9 +27,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: action checkout 
         uses: actions/checkout@v2
-        
+     
+      - name: install java 11 
+        uses: actions/setup-java@v1 
+        with: 
+          java-version: 11.0.8
+      
+      - name: gradlew author 
+        run: chmod +x ./gradlew 
+     
       - name: gradle build 
-        run: ./gradlew build -x test       
+        run: ./gradlew build       
         
   front:
     name: CI with node.js 
@@ -39,9 +47,21 @@ jobs:
         shell: bash 
         working-directory: study-app 
     
+    strategy: 
+      matrix: 
+        node-version: [12.16.x]
+
     steps: 
       - name: action checkout 
         uses: actions/checkout@v2 
+        
+      - name: node.js install 
+        uses: actions/setup-node@v1 
+        with: 
+          node-version: ${{matrix.node-version}}
+    
+      - name: install npm 
+        run: npm install 
         
       - name: front build 
         run: npm run build 
