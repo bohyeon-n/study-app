@@ -3,10 +3,10 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/html
+    destination: /home/ubuntu/client
 
 permissions:
-  - object: /home/ubuntu/html
+  - object: /home/ubuntu/client
     owner: ubuntu
     group: ubuntu
     mode: 755
