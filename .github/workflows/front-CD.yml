@@ -1,0 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
+name: front CD
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the dev branch
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: pwd 확인 
+        run: pwd 
+      
+      - name: node.js 8 설치 ${{ matrix.node-version }}
+        uses: actions/setup-node@v1 
+        with: 
+          node-version: ${{ matrix.node-version }} 
+
+      - name: install npm 
+        run: npm install 
+      
+      - name: npm build 
+        run: npm run build 
+      
+      - name: zip 생성 
+        run: zip -qq -r ./build.zip . 
+        shell: bash 
+      
+      - name: aws 설정 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: S3 upload
+        run: aws deploy push --application-name study-app-codedeploy-server --description "study-app server" --s3-location s3://study-codedeploy/client/build.zip --source .
+         
+      - name: code deploy
+        run: aws deploy create-deployment --application-name study-app-codedeploy-server --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name dev --s3-location bucket=study-codedeploy,bundleType=zip,key=client/build.zip
+        
+
+

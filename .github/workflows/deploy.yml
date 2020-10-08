@@ -62,6 +62,8 @@ jobs:
 
       - name: install dependency 
         run: npm install
+        env:
+          CI: true
       
       - name: npm 빌드
-        run: npm run build
+        run: npm run build 
