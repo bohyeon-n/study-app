@@ -6,9 +6,9 @@ name: front CD
 # events but only for the dev branch
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev, test ]
   pull_request:
-    branches: [ dev ]
+    branches: [ dev, test ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -16,7 +16,13 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    defaults: 
+      run: 
+        shell: bash 
+        working-directory: study-app 
+    strategy: 
+      matrix:
+        node-version: [12.x]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -25,7 +31,7 @@ jobs:
       - name: pwd 확인 
         run: pwd 
       
-      - name: node.js 8 설치 ${{ matrix.node-version }}
+      - name: node.js ${{ matrix.node-version }} 설치 
         uses: actions/setup-node@v1 
         with: 
           node-version: ${{ matrix.node-version }} 
@@ -34,7 +40,9 @@ jobs:
         run: npm install 
       
       - name: npm build 
-        run: npm run build 
+        run: npm run build -ddd
+        env:
+            CI: false
       
       - name: zip 생성 
         run: zip -qq -r ./build.zip . 
