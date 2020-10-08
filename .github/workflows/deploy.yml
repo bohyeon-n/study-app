@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy to amazon ec2 
+name: CI 
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the dev branch
@@ -13,7 +13,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  backend:
+  back:
     # The type of runner that the job will run on
     name: CI with gradle
     runs-on: ubuntu-18.04
@@ -40,33 +40,28 @@ jobs:
         run: ./gradlew build       
         
   front:
-    name: CI with node.js 
-    runs-on: ubuntu-latest 
-    defaults: 
+    name: CI with Node.js
+    runs-on: ubuntu-latest
+    defaults:
       run:
-        shell: bash 
-        working-directory: study-app 
+        shell: bash
+        working-directory: study-app
+        
+    strategy:
+      matrix:
+        node-version: [8.x]
     
-    strategy: 
-      matrix: 
-        node-version: [12.16.x]
+    steps:
+      - name: 체크아웃 Github-Action
+        uses: actions/checkout@v2
+        
+      - name: node.js 8 설치 ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    steps: 
-      - name: action checkout 
-        uses: actions/checkout@v2 
-        
-      - name: node.js install 
-        uses: actions/setup-node@v1 
-        with: 
-          node-version: ${{matrix.node-version}}
-    
-      - name: install npm 
-        run: npm install 
-        
-      - name: front build 
-        run: npm run build 
-          
-    
-    
-     
-    
+      - name: install dependency 
+        run: npm install
+      
+      - name: npm 빌드
+        run: npm run build
