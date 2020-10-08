@@ -41,6 +41,8 @@ jobs:
       
       - name: npm build 
         run: npm run build -ddd
+        env:
+            CI: false
       
       - name: zip 생성 
         run: zip -qq -r ./build.zip . 
