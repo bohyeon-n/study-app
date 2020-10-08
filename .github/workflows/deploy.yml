@@ -49,13 +49,13 @@ jobs:
         
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [8.x]
     
     steps:
       - name: 체크아웃 Github-Action
         uses: actions/checkout@v2
         
-      - name: node.js 12 설치 ${{ matrix.node-version }}
+      - name: node.js 8 설치 ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
