@@ -19,9 +19,7 @@ else
 fi
 
 echo "> $JAR_PATH 배포"
-nohup java -jar
-      -Dspring.config.location=classpath:/,file:///home/ubuntu/study-app-env/application-prod.properties
-      $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+nohup java -jar -Dspring.config.location=classpath:/,file:///home/ubuntu/study-app-env/application-prod.properties $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
 
 echo "[$(date)] server deploy" >> /home/ubuntu/deploy.log
 
