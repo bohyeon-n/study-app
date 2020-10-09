@@ -13,7 +13,7 @@ if [ -z "$CURRENT_PID" ]
 then
   echo "> 종료할 것 없음." >> /home/ubuntu/deploy.log
 else
-  echo "> kill -15 $CURRENT_PID" >> /home/ubuntu/deploy.log
+  echo "> sudo kill -15 $CURRENT_PID" >> /home/ubuntu/deploy.log
   kill -15 "$CURRENT_PID"
   sleep 5
 fi
