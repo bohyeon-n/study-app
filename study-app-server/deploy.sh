@@ -11,7 +11,7 @@ CURRENT_PID=$(pgrep -f $APP_NAME)
 
 if [ -z "$CURRENT_PID" ]
 then
-  echo "> 종료할것 없음." >> /home/ubuntu/deploy.log
+  echo "> 종료할 것 없음." >> /home/ubuntu/deploy.log
 else
   echo "> kill -15 $CURRENT_PID" >> /home/ubuntu/deploy.log
   kill -15 "$CURRENT_PID"
