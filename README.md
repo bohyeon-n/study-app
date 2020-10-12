@@ -117,7 +117,9 @@ npm start
 - 배포
   - apache
   - aws ec2
-
+  - github action 
+  - aws codedeploy 
+  
 ## 데이터 구조
 
 - erd
